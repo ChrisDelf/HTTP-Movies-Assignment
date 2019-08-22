@@ -41,11 +41,11 @@ const UpdateForm = ( { status, values }) => {
 
 
 
-useEffect(() => {
-    axios.get(`http://localhost:5000/api/movies`).then(res => {
-      setMovie(res.data);
-    });
-  }, [status]);
+// useEffect(() => {
+//     axios.get(`http://localhost:5000/api/movies`).then(res => {
+//       setMovie(res.data);
+//     });
+//   }, [status]);
 
   return (
     <>
@@ -85,8 +85,6 @@ const FormikUpdateForm = withFormik({
       .then(res => {
         console.log(res);
         setStatus(res)
-
-
         resetForm();
       })
 
