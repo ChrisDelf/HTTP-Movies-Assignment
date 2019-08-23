@@ -35,17 +35,13 @@ const useStyles = makeStyles({
 //
 // }
 
-const UpdateForm = ( { status, values }) => {
+const UpdateForm = ( props, { status, values, }) => {
   const [movie, setMovie] = useState()
   const classes = useStyles();
+  console.log("In update Form", props.id)
 
 
 
-// useEffect(() => {
-//     axios.get(`http://localhost:5000/api/movies`).then(res => {
-//       setMovie(res.data);
-//     });
-//   }, [status]);
 
   return (
     <>
@@ -57,7 +53,7 @@ const UpdateForm = ( { status, values }) => {
             <Field type="text" name="director" placeholder="director..." />
             <Field type="text" name="metascore" placeholder="metascore..." />
             <Field type="text" name="stars" placeholder="stars..." />
-            <Button className="button">Confirm update</Button>
+            <Button className="button" type = "submit">Confirm update</Button>
           </Form>
         </Card>
       </div>
@@ -67,28 +63,35 @@ const UpdateForm = ( { status, values }) => {
 
 
 const FormikUpdateForm = withFormik({
-  mapPropsToValues({ title, director, metascore, stars }) {
+  mapPropsToValues({ title, director, metascore, stars, id }) {
+
+   console.log(id)
     return {
       title: title || '',
       director: director || '',
       metascore: metascore || '',
-      stars: stars || [],
-
+      stars: [] || [''],
+      id: id || '',
     };
+
   },
 
 
-  handleSubmit(values, { resetForm, setStatus }) {
+  handleSubmit( values,  { setStatus, resetForm}) {
 
     axios
-      .put(`http://localhost:3000/api/movies/1`, values)
+      .put(`http://localhost:5000/api/movies/${values.id}`, values)
       .then(res => {
+
         console.log(res);
         setStatus(res)
         resetForm();
       })
 
-      .catch(err => console.log(err));
+      .catch(err =>{
+        console.log(err)
+          console.log("Inside of Submit handler", values)
+      });
   }
 })(UpdateForm);
 

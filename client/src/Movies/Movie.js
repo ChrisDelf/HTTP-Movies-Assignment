@@ -13,6 +13,8 @@ export default class Movie extends React.Component {
 
   componentDidMount() {
     this.fetchMovie(this.props.match.params.id);
+    console.log(this.props.match.params.id)
+    this.props.setId(this.props.match.params.id);
   }
 
   componentWillReceiveProps(newProps) {
@@ -33,7 +35,10 @@ export default class Movie extends React.Component {
     axios
       .delete(`http://localhost:5000/api/movies/${this.props.match.params.id}`)
       .then(res => {
+        // const movieArr = this.props.movies.filter(e => this.state.movie.id === e.id );
+        // set
         this.setMovies(res.data);
+        this.props.history.push('/');
       })
       .catch(err => console.log(err.response));
   };

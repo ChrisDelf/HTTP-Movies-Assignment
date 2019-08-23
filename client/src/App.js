@@ -9,6 +9,7 @@ import FormikUpdateForm from './Movies/UpdateForm';
 const App = () => {
   const [savedList, setSavedList] = useState([]);
   const [movies, setMovies] = useState([]);
+  const [id, setId] = useState();
 
   const addToSavedList = movie => {
     setSavedList([...savedList, movie]);
@@ -47,6 +48,7 @@ const App = () => {
               movies={movies}
               setMovies={setMovies}
               addToSavedList={addToSavedList}
+              setId={setId}
             />
           );
         }}
@@ -56,7 +58,8 @@ const App = () => {
         render={props => {
           return (
             <FormikUpdateForm
-              {...props}
+            {...props}
+              id = {id}
               movies={movies}
               setMovies={setMovies}
             />
